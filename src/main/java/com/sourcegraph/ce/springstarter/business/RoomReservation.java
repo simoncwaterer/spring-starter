@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter.business;
+package com.sourcegraph.ce.springstarter.business;
 
 import java.util.Date;
 
@@ -69,8 +69,10 @@ public class RoomReservation {
 
     @Override
     public String toString() {
-        return "RoomReservation{" +
-                "roomId=" + roomId +
+        return """
+                RoomReservation{\
+                roomId=\
+                """ + roomId +
                 ", guestId=" + guestId +
                 ", roomName='" + roomName + '\'' +
                 ", roomNumber='" + roomNumber + '\'' +

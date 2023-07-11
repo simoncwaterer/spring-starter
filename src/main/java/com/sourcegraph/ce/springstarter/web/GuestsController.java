@@ -1,14 +1,14 @@
-package com.simonw.sg.springstarter.web;
+package com.sourcegraph.ce.springstarter.web;
 
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.simonw.sg.springstarter.business.ReservationService;
-import com.simonw.sg.springstarter.data.Guest;
+import com.sourcegraph.ce.springstarter.data.Guest;
+import com.sourcegraph.ce.springstarter.business.ReservationService;
 
 @Controller
 @RequestMapping("/guests")
@@ -20,7 +20,7 @@ public class GuestsController {
         this.reservationService = reservationService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String getGuests(Model model) {
         List<Guest> guests = reservationService.getHotelGuests();
         model.addAttribute("guests", guests);

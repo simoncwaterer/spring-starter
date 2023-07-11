@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter.util;
+package com.sourcegraph.ce.springstarter.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

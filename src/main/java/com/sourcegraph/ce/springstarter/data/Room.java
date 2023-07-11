@@ -1,5 +1,4 @@
-package com.simonw.sg.springstarter.data;
-
+package com.sourcegraph.ce.springstarter.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,18 +9,17 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="ROOM")
-
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ROOM_ID")
     private long id;
     @Column(name="NAME")
-    private String name;    
+    private String name;
     @Column(name="ROOM_NUMBER")
     private String roomNumber;
     @Column(name="BED_INFO")
-    private String bedInfo;  
+    private String bedInfo;
 
     public long getId() {
         return id;
@@ -57,8 +55,13 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room [id=" + id + ", name=" + name + ", roomNumber=" + roomNumber + ", bedInfo=" + bedInfo + "]";
+        return """
+                Room{\
+                id=\
+                """ + id +
+                ", name='" + name + '\'' +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", bedInfo='" + bedInfo + '\'' +
+                '}';
     }
-
 }
-

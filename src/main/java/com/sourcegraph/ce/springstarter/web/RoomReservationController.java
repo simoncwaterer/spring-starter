@@ -1,17 +1,17 @@
-package com.simonw.sg.springstarter.web;
+package com.sourcegraph.ce.springstarter.web;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.simonw.sg.springstarter.business.ReservationService;
-import com.simonw.sg.springstarter.business.RoomReservation;
-import com.simonw.sg.springstarter.util.DateUtils;
+import com.sourcegraph.ce.springstarter.business.ReservationService;
+import com.sourcegraph.ce.springstarter.business.RoomReservation;
+import com.sourcegraph.ce.springstarter.util.DateUtils;
 
 @Controller
 @RequestMapping("/reservations")
@@ -24,7 +24,7 @@ public class RoomReservationController {
         this.dateUtils = dateUtils;
         this.reservationService = reservationService; 
     }
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String getReservations(@RequestParam(value = "date", required = false) String dateString, Model model) {
 
         Date date = this.dateUtils.createDateFromDateString(dateString);

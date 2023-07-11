@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter.business;
+package com.sourcegraph.ce.springstarter.business;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,13 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.simonw.sg.springstarter.data.Guest;
-import com.simonw.sg.springstarter.data.GuestRepository;
-import com.simonw.sg.springstarter.data.Reservation;
-import com.simonw.sg.springstarter.data.ReservationRepository;
-import com.simonw.sg.springstarter.data.Room;
-import com.simonw.sg.springstarter.data.RoomRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sourcegraph.ce.springstarter.data.Guest;
+import com.sourcegraph.ce.springstarter.data.GuestRepository;
+import com.sourcegraph.ce.springstarter.data.Reservation;
+import com.sourcegraph.ce.springstarter.data.ReservationRepository;
+import com.sourcegraph.ce.springstarter.data.Room;
+import com.sourcegraph.ce.springstarter.data.RoomRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +30,7 @@ public class ReservationService {
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
         Iterable<Room> rooms = this.roomRepository.findAll();
-        Map<Long, RoomReservation> roomReservationMap = new HashMap();
+        Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
@@ -64,28 +63,6 @@ public class ReservationService {
         return roomReservations;
     }
 
-    public List<Guest> getHotelGuests() {
-        final Iterable<Guest> guests = this.guestRepository.findAll();
-        List<Guest> guestList = new ArrayList<Guest>();
-        guests.forEach(guestList::add);
-        guestList.sort((g1, g2) -> {
-            int lastNameComparison = g1.getLastName().compareTo(g2.getLastName());
-            if (lastNameComparison != 0) {
-                return lastNameComparison;
-            }
-            return g1.getFirstName().compareTo(g2.getFirstName());
-        });
-
-        return guestList;
-    }
-
-    public void addGuest(Guest guest) {
-        if (guest == null) {
-            throw new IllegalArgumentException("Guest cannot be null");
-        }
-        this.guestRepository.save(guest);
-    }
-
 
     public List<Room> getRooms() {
         final Iterable<Room> rooms = this.roomRepository.findAll();
@@ -96,5 +73,11 @@ public class ReservationService {
         return roomList;
     }
 
-}
+    // get a list of rooms sorted by bedinfo
+    public List<Room> getRoomsByBedInfo()
 
+    }
+
+
+
+}

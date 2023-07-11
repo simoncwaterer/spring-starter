@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter;
+package com.sourcegraph.ce.springstarter;
 
 import org.springframework.stereotype.Component;
 

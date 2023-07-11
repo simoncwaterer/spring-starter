@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter.webservice;
+package com.sourcegraph.ce.springstarter.webservice;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.simonw.sg.springstarter.business.ReservationService;
-import com.simonw.sg.springstarter.business.RoomReservation;
-import com.simonw.sg.springstarter.data.Guest;
-import com.simonw.sg.springstarter.data.Room;
-import com.simonw.sg.springstarter.util.DateUtils;
+import com.sourcegraph.ce.springstarter.data.Guest;
+import com.sourcegraph.ce.springstarter.data.Room;
+import com.sourcegraph.ce.springstarter.business.ReservationService;
+import com.sourcegraph.ce.springstarter.business.RoomReservation;
+import com.sourcegraph.ce.springstarter.util.DateUtils;
 
 @RestController
 @RequestMapping("/api")

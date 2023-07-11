@@ -1,4 +1,4 @@
-package com.simonw.sg.springstarter.data;
+package com.sourcegraph.ce.springstarter.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,32 +7,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-  
 @Entity
 @Table(name="GUEST")
 public class Guest {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="GUEST_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long guestId;
     @Column(name="FIRST_NAME")
-    private String firstName;    
+    private String firstName;
     @Column(name="LAST_NAME")
     private String lastName;
     @Column(name="EMAIL_ADDRESS")
-    private String emailAddress;  
+    private String emailAddress;
     @Column(name="ADDRESS")
-    private String address;  
+    private String address;
     @Column(name="COUNTRY")
-    private String country;  
+    private String country;
     @Column(name="STATE")
-    private String state;  
+    private String state;
     @Column(name="PHONE_NUMBER")
-    private String phoneNumber;  
-    
+    private String phoneNumber;
 
-    
     public long getGuestId() {
         return guestId;
     }
@@ -99,8 +95,17 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "Guest [id=" + guestId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailAddress="
-                + emailAddress + ", address=" + address + ", country=" + country + ", state=" + state
-                + ", phoneNumber=" + phoneNumber + "]";
+        return """
+                Guest{\
+                guestId=\
+                """ + guestId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", address='" + address + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

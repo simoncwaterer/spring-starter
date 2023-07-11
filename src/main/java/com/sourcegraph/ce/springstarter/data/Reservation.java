@@ -1,6 +1,4 @@
-package com.simonw.sg.springstarter.data;
-
-import java.sql.Date;
+package com.sourcegraph.ce.springstarter.data;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,52 +6,63 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.sql.Date;
 
 @Entity
 @Table(name="RESERVATION")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="RESERVATION_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long reservationId;
     @Column(name="ROOM_ID")
-    private long roomId;    
+    private long roomId;
     @Column(name="GUEST_ID")
     private long guestId;
     @Column(name="RES_DATE")
     private Date reservationDate;
-    
+
     public long getReservationId() {
         return reservationId;
     }
-    public long getRoomId() {
-        return roomId;
-    }
-    public long getGuestId() {
-        return guestId;
-    }
-    public Date getReservationDate() {
-        return reservationDate;
-    }
+
     public void setReservationId(long reservationId) {
         this.reservationId = reservationId;
     }
+
+    public long getRoomId() {
+        return roomId;
+    }
+
     public void setRoomId(long roomId) {
         this.roomId = roomId;
     }
+
+    public long getGuestId() {
+        return guestId;
+    }
+
     public void setGuestId(long guestId) {
         this.guestId = guestId;
     }
-    public void setReservationDate(Date date) {
-        this.reservationDate = date;
+
+    public Date getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     @Override
     public String toString() {
-        return "Reservation [reservationId=" + reservationId + ", roomId=" + roomId + ", guestId=" + guestId + ", date="
-                + reservationDate + "]";
+        return """
+                Reservation{\
+                reservationId=\
+                """ + reservationId +
+                ", roomId=" + roomId +
+                ", guestId=" + guestId +
+                ", reservationDate=" + reservationDate +
+                '}';
     }
-    
-    
-    
 }

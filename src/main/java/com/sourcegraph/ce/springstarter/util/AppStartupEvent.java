@@ -1,15 +1,15 @@
-package com.simonw.sg.springstarter.util;
+package com.sourcegraph.ce.springstarter.util;
 
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.simonw.sg.springstarter.data.Guest;
-import com.simonw.sg.springstarter.data.GuestRepository;
-import com.simonw.sg.springstarter.data.Reservation;
-import com.simonw.sg.springstarter.data.ReservationRepository;
-import com.simonw.sg.springstarter.data.Room;
-import com.simonw.sg.springstarter.data.RoomRepository;
+import com.sourcegraph.ce.springstarter.data.Guest;
+import com.sourcegraph.ce.springstarter.data.GuestRepository;
+import com.sourcegraph.ce.springstarter.data.Reservation;
+import com.sourcegraph.ce.springstarter.data.ReservationRepository;
+import com.sourcegraph.ce.springstarter.data.Room;
+import com.sourcegraph.ce.springstarter.data.RoomRepository;
 
 
 @Component
