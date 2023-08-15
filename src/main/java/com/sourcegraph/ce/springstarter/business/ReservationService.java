@@ -63,7 +63,30 @@ public class ReservationService {
         return roomReservations;
     }
 
+    // get a list of guests sorted by lastName and then by firstName
+    public List<Guest> getHotelGuests() {
+        List<Guest> guests = guestRepository.findAll();
+        guests.sort(new Comparator<Guest>() {
+            @Override
+            public int compare(Guest g1, Guest g2) {
+                int lastNameComparison = g1.getLastName().compareTo(g2.getLastName());
+                if (lastNameComparison == 0) {
+                    return g1.getFirstName().compareTo(g2.getFirstName());
+                }
+                return lastNameComparison;
+            }
+        });
+        return guests;
+    }
 
+    public void addGuest(Guest guest) {
+        if (guest == null) {
+            throw new IllegalArgumentException("Guest cannot be null");
+        }
+        this.guestRepository.save(guest);
+    }
+
+    // get Rooms and sort by Room Number
     public List<Room> getRooms() {
         final Iterable<Room> rooms = this.roomRepository.findAll();
         List<Room> roomList = new ArrayList<Room>();
@@ -74,10 +97,16 @@ public class ReservationService {
     }
 
     // get a list of rooms sorted by bedinfo
-    public List<Room> getRoomsByBedInfo()
-
+    public List<Room> getRoomsByBedInfo() {
+        final Iterable<Room> rooms = this.roomRepository.findAll();
+        List<Room> roomList = new ArrayList<>();
+        rooms.forEach(roomList::add);
+        roomList.sort(new Comparator<Room>() {
+            @Override
+            public int compare(Room o1, Room o2) {
+                return o1.getBedInfo().compareTo(o2.getBedInfo());
+            }
+        });
+        return roomList;
     }
-
-
-
 }
