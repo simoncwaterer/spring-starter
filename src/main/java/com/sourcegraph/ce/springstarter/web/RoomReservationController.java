@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sourcegraph.ce.springstarter.business.ReservationService;
 import com.sourcegraph.ce.springstarter.business.RoomReservation;
 import com.sourcegraph.ce.springstarter.util.DateUtils;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/reservations")
@@ -19,11 +21,12 @@ public class RoomReservationController {
 
     private final DateUtils dateUtils;
     private final ReservationService reservationService;
-    
-    public RoomReservationController(DateUtils dateUtils, ReservationService reservationService) { 
+
+    public RoomReservationController(DateUtils dateUtils, ReservationService reservationService) {
         this.dateUtils = dateUtils;
-        this.reservationService = reservationService; 
+        this.reservationService = reservationService;
     }
+
     @GetMapping
     public String getReservations(@RequestParam(value = "date", required = false) String dateString, Model model) {
 
@@ -33,5 +36,10 @@ public class RoomReservationController {
         return "roomres";
     }
 
-    
+    // Post method to add a new reservation
+    @PostMapping("/add")
+    public String addReservation(@RequestBody RoomReservation roomReservation) {
+        reservationService.addReservation(roomReservation);
+        return "redirect:/reservations?date=" + roomReservation.getDate();
+    }
 }

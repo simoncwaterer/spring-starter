@@ -1,11 +1,34 @@
- 
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome to Sourcegraph Hotel</title>
+</head>
+
+<body>
+    <h1>Welcome To The Guests Page</h1>
+
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>Phone Number</th>
+        </tr>
+        <tr th:each="guest : ${guests}">
+            <td th:text="${guest.firstName}"></td>
+            <td th:text="${guest.lastName}"></td>
+            <td th:text="${guest.emailAddress}"></td>
+            <td th:text="${guest.address}"></td>
+            <td th:text="${guest.country}"></td>
+            <td th:text="${guest.state}"></td>
+            <td th:text="${guest.phoneNumber}"></td>
+        </tr>
+    </table>
+</body>
+
 </html>

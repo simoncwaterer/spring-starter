@@ -50,13 +50,10 @@ public class WebserviceController {
         this.reservationService.addGuest(guest); 
     }
 
-
-
     @GetMapping("/rooms")
     List<Room> getRooms() {
         return this.reservationService.getRooms();
     }
-
 
 } 
 

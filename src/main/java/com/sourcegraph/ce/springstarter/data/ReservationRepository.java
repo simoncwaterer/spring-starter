@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     Iterable<Reservation> findReservationByReservationDate(Date date);
+
+    Reservation findReservationByGuestIdAndReservationDate(long guestId, Date reservationDate);
 }
