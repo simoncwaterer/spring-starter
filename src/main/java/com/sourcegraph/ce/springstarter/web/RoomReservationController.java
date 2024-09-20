@@ -36,10 +36,4 @@ public class RoomReservationController {
         return "roomres";
     }
 
-    // Post method to add a new reservation
-    @PostMapping("/add")
-    public String addReservation(@RequestBody RoomReservation roomReservation) {
-        reservationService.addReservation(roomReservation);
-        return "redirect:/reservations?date=" + roomReservation.getDate();
-    }
 }

@@ -10,7 +10,7 @@ import com.sourcegraph.ce.springstarter.data.Reservation;
 import com.sourcegraph.ce.springstarter.data.ReservationRepository;
 import com.sourcegraph.ce.springstarter.data.Room;
 import com.sourcegraph.ce.springstarter.data.RoomRepository;
-
+import org.springframework.lang.NonNull;
 
 @Component
 public class AppStartupEvent implements ApplicationListener<ApplicationReadyEvent> {
@@ -18,14 +18,15 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
 
-    public AppStartupEvent(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository) {
+    public AppStartupEvent(RoomRepository roomRepository, GuestRepository guestRepository,
+            ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
         this.reservationRepository = reservationRepository;
     }
 
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
+    public void onApplicationEvent(@NonNull ApplicationReadyEvent event) {
         Iterable<Room> rooms = this.roomRepository.findAll();
         rooms.forEach(System.out::println);
         Iterable<Guest> guests = this.guestRepository.findAll();
@@ -34,5 +35,3 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
         reservations.forEach(System.out::println);
     }
 }
-
-
