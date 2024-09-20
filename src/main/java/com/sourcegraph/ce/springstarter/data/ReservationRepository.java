@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    Iterable<Reservation> findReservationByReservationDate(Date date);
 
-    Reservation findReservationByGuestIdAndReservationDate(long guestId, Date reservationDate);
+    Iterable<Reservation> findReservationByCheckInDate(Date date);
+
+    Reservation findReservationByGuestIdAndCheckInDate(long guestId, Date checkInDate);
+
+    Reservation findReservationByRoomIdAndCheckInDate(long roomId, Date checkInDate);
 }

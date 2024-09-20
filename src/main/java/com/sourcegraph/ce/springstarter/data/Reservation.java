@@ -19,8 +19,10 @@ public class Reservation {
     private long roomId;
     @Column(name="GUEST_ID")
     private long guestId;
-    @Column(name="RES_DATE")
-    private Date reservationDate;
+    @Column(name="CHECK_IN_DATE")
+    private Date checkInDate;
+    @Column(name="CHECK_OUT_DATE")
+    private Date checkOutDate;
 
     public long getReservationId() {
         return reservationId;
@@ -46,12 +48,20 @@ public class Reservation {
         this.guestId = guestId;
     }
 
-    public Date getReservationDate() {
-        return reservationDate;
+    public Date getCheckInDate() {
+        return checkInDate;
     }
 
-    public void setReservationDate(Date reservationDate) {
-        this.reservationDate = reservationDate;
+    public void setCheckInDate(Date checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public void setCheckOutDate(Date checkOutDate) {
+        this.checkOutDate = checkOutDate;
     }
 
     @Override
@@ -62,7 +72,8 @@ public class Reservation {
                 """ + reservationId +
                 ", roomId=" + roomId +
                 ", guestId=" + guestId +
-                ", reservationDate=" + reservationDate +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
                 '}';
     }
 }

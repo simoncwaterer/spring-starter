@@ -90,13 +90,13 @@ public class ReservationServiceTest {
         guest2.setLastName("Smith");
 
         Reservation reservation1 = new Reservation();
-        reservation1.setReservationDate(new java.sql.Date(date.getTime()));
+        reservation1.setCheckInDate(new java.sql.Date(date.getTime()));
         reservation1.setGuestId(1L);
         Reservation reservation2 = new Reservation();
-        reservation2.setReservationDate(new java.sql.Date(date.getTime()));
+        reservation2.setCheckInDate(new java.sql.Date(date.getTime()));
         reservation2.setGuestId(2L);
 
-        when(reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime())))
+        when(reservationRepository.findReservationByCheckInDate(new java.sql.Date(date.getTime())))
                 .thenReturn(List.of(reservation1, reservation2));
         when(guestRepository.findById(1L)).thenReturn(Optional.of(guest1));
         when(guestRepository.findById(2L)).thenReturn(Optional.of(guest2));
@@ -114,7 +114,7 @@ public class ReservationServiceTest {
     public void testGetGuestsWithReservationOnDate_noReservations() {
         Date date = new Date();
 
-        when(reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime())))
+        when(reservationRepository.findReservationByCheckInDate(new java.sql.Date(date.getTime())))
                 .thenReturn(Collections.emptyList());
 
         List<Guest> result = reservationService.getGuestsWithReservationOnDate(date);
@@ -127,10 +127,10 @@ public class ReservationServiceTest {
         Date date = new Date();
 
         Reservation reservation = new Reservation();
-        reservation.setReservationDate(new java.sql.Date(date.getTime()));
+        reservation.setCheckInDate(new java.sql.Date(date.getTime()));
         reservation.setGuestId(1L);
 
-        when(reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime())))
+        when(reservationRepository.findReservationByCheckInDate(new java.sql.Date(date.getTime())))
                 .thenReturn(List.of(reservation));
         when(guestRepository.findById(1L)).thenReturn(Optional.empty());
 

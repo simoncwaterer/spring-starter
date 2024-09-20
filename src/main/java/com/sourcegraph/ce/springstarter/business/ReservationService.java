@@ -17,6 +17,9 @@ import com.sourcegraph.ce.springstarter.data.Reservation;
 import com.sourcegraph.ce.springstarter.data.ReservationRepository;
 import com.sourcegraph.ce.springstarter.data.Room;
 import com.sourcegraph.ce.springstarter.data.RoomRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,6 +41,8 @@ public class ReservationService {
     private final GuestRepository guestRepository;
     private final ReservationRepository reservationRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+
     public ReservationService(RoomRepository roomRepository, GuestRepository guestRepository,
             ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
@@ -46,6 +51,8 @@ public class ReservationService {
     }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
+        logger.info("Getting room reservations for date: {}", date);
+
         Iterable<Room> rooms = this.roomRepository.findAll();
         Map<Long, RoomReservation> roomReservationMap = new HashMap<>();
         rooms.forEach(room -> {
@@ -55,8 +62,11 @@ public class ReservationService {
             roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservationMap.put(room.getId(), roomReservation);
         });
+
+        logger.info("Found {} rooms", roomReservationMap.size());
+
         Iterable<Reservation> reservations = this.reservationRepository
-                .findReservationByReservationDate(new java.sql.Date(date.getTime()));
+                .findReservationByCheckInDate(new java.sql.Date(date.getTime()));
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
             roomReservation.setDate(date);
@@ -65,6 +75,10 @@ public class ReservationService {
             roomReservation.setLastName(guest.getLastName());
             roomReservation.setGuestId(guest.getGuestId());
         });
+
+        logger.info("Processed {} reservations",
+                roomReservationMap.values().stream().filter(r -> r.getDate() != null).count());
+
         List<RoomReservation> roomReservations = new ArrayList<>();
         for (Long id : roomReservationMap.keySet()) {
             roomReservations.add(roomReservationMap.get(id));
@@ -78,6 +92,9 @@ public class ReservationService {
                 return o1.getRoomName().compareTo(o2.getRoomName());
             }
         });
+
+        logger.info("Returning {} room reservations", roomReservations.size());
+
         return roomReservations;
     }
 
@@ -89,7 +106,7 @@ public class ReservationService {
 
         List<Guest> guests = new ArrayList<>();
         Iterable<Reservation> reservations = this.reservationRepository
-                .findReservationByReservationDate(new java.sql.Date(date.getTime()));
+                .findReservationByCheckInDate(new java.sql.Date(date.getTime()));
 
         if (!reservations.iterator().hasNext()) {
             // No reservations found for the given date
@@ -191,7 +208,7 @@ public class ReservationService {
         }
 
         Reservation reservation = this.reservationRepository
-                .findReservationByGuestIdAndReservationDate(guest.getGuestId(), new java.sql.Date(date.getTime()));
+                .findReservationByGuestIdAndCheckInDate(guest.getGuestId(), new java.sql.Date(date.getTime()));
 
         if (reservation == null) {
             System.out.println("Error: Reservation not found for guest " + guestFirstName + " " + guestLastName
@@ -203,41 +220,6 @@ public class ReservationService {
                 .println("Deleting reservation for guest " + guestFirstName + " " + guestLastName + " on date " + date);
 
         this.reservationRepository.delete(reservation);
-    }
-
-    public void addReservation(RoomReservation roomReservation) {
-        if (roomReservation == null) {
-            throw new IllegalArgumentException("RoomReservation cannot be null");
-        }
-
-        // check if the guest exists
-        Optional<Guest> guestOptional = this.guestRepository.findById(roomReservation.getGuestId());
-        if (!guestOptional.isPresent()) {
-            throw new IllegalArgumentException("Invalid guest ID: " + roomReservation.getGuestId());
-        }
-
-        // check if the room exists
-        Optional<Room> roomOptional = this.roomRepository.findById(roomReservation.getRoomId());
-        if (!roomOptional.isPresent()) {
-            throw new IllegalArgumentException("Invalid room ID: " + roomReservation.getRoomId());
-        }
-
-        // create a new Reservation entity from the roomReservation object
-        Reservation reservation = new Reservation();
-        reservation.setReservationDate(new java.sql.Date(roomReservation.getDate().getTime()));
-        reservation.setGuestId(roomReservation.getGuestId());
-        reservation.setRoomId(roomReservation.getRoomId());
-        // save the reservation
-        this.reservationRepository.save(reservation);
-
-        // print some logging information
-        guestOptional.ifPresent(guest -> {
-            System.out.println("Reservation added for guest " + guest.getFirstName() + " " + guest.getLastName()
-                    + " on date " + roomReservation.getDate());
-        });
-        roomOptional.ifPresent(room -> {
-            System.out.println("Reservation added for room " + room.getRoomNumber());
-        });
     }
 
 }
