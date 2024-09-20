@@ -205,39 +205,4 @@ public class ReservationService {
         this.reservationRepository.delete(reservation);
     }
 
-    public void addReservation(RoomReservation roomReservation) {
-        if (roomReservation == null) {
-            throw new IllegalArgumentException("RoomReservation cannot be null");
-        }
-
-        // check if the guest exists
-        Optional<Guest> guestOptional = this.guestRepository.findById(roomReservation.getGuestId());
-        if (!guestOptional.isPresent()) {
-            throw new IllegalArgumentException("Invalid guest ID: " + roomReservation.getGuestId());
-        }
-
-        // check if the room exists
-        Optional<Room> roomOptional = this.roomRepository.findById(roomReservation.getRoomId());
-        if (!roomOptional.isPresent()) {
-            throw new IllegalArgumentException("Invalid room ID: " + roomReservation.getRoomId());
-        }
-
-        // create a new Reservation entity from the roomReservation object
-        Reservation reservation = new Reservation();
-        reservation.setReservationDate(new java.sql.Date(roomReservation.getDate().getTime()));
-        reservation.setGuestId(roomReservation.getGuestId());
-        reservation.setRoomId(roomReservation.getRoomId());
-        // save the reservation
-        this.reservationRepository.save(reservation);
-
-        // print some logging information
-        guestOptional.ifPresent(guest -> {
-            System.out.println("Reservation added for guest " + guest.getFirstName() + " " + guest.getLastName()
-                    + " on date " + roomReservation.getDate());
-        });
-        roomOptional.ifPresent(room -> {
-            System.out.println("Reservation added for room " + room.getRoomNumber());
-        });
-    }
-
 }
