@@ -225,20 +225,20 @@ public class ReservationService {
     // method to add a reservation based on room id, guest id, check in date, and
     // check out date
     public Reservation bookReservation(Long roomId, Long guestId, Date checkInDate, Date checkOutDate) {
-        System.out.println("Attempting to book reservation for Room ID: " + roomId + ", Guest ID: " + guestId);
+        logger.info("Attempting to book reservation for Room ID: " + roomId + ", Guest ID: " + guestId);
         Room room = this.roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
         Guest guest = this.guestRepository.findById(guestId).orElseThrow(() -> new RuntimeException("Guest not found"));
 
-        System.out.println("Room and Guest found. Creating reservation...");
+        logger.info("Room and Guest found. Creating reservation...");
         Reservation reservation = new Reservation();
         reservation.setRoomId(room.getId());
         reservation.setGuestId(guest.getGuestId());
         reservation.setCheckInDate(new java.sql.Date(checkInDate.getTime()));
         reservation.setCheckOutDate(new java.sql.Date(checkOutDate.getTime()));
 
-        System.out.println("Saving reservation to repository...");
+        logger.info("Saving reservation to repository...");
         Reservation savedReservation = reservationRepository.save(reservation);
-        System.out.println("Reservation booked successfully. Reservation ID: " + savedReservation.getReservationId());
+        logger.info("Reservation booked successfully. Reservation ID: " + savedReservation.getReservationId());
 
         return savedReservation;
     }
