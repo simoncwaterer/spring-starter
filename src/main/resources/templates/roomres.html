@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>Landon Hotel: Room Reservations</title>
 </head>
+
 <body>
 
     <h1>Welcome to Room Reservations Page</h1>
 
-<table>
-    <tr>
-        <th>Room</th> 
-        <th>Room Number</th>
-        <th>Guest</th>
-    </tr>
-    <tr th:each="roomReservation : ${roomReservations}">
-        <td th:text="${roomReservation.roomName}">Deluxe Double</td>
-        <td th:text="${roomReservation.roomNumber}">201</td>
-            <td th:text="${roomReservation.lastName != null ? roomReservation.lastName + ', ' + roomReservation.firstName : 'VACANT'}">John Smith</td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <th>Room</th>
+            <th>Room Number</th>
+            <th>Guest</th>
+        </tr>
+        <tr th:each="roomReservation : ${roomReservations}">
+            <td th:text="${roomReservation.roomName}">Deluxe Double</td>
+            <td th:text="${roomReservation.roomNumber}">201</td>
+            <td
+                th:text="${roomReservation.lastName != null ? roomReservation.lastName + ', ' + roomReservation.firstName : 'VACANT'}">
+                John Smith</td>
+        </tr>
+    </table>
 
 
 </body>
-</html>
 
+</html>
