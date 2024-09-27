@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Reservation Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+    <h1>Reservation Confirmed</h1>
+    <p>Your reservation has been booked successfully.</p>
+    <p>Reservation ID: <span th:text="${reservation.reservationId}"></span></p>
+    <p>Check-in Date: <span th:text="${#dates.format(reservation.checkInDate, 'yyyy-MM-dd')}"></span></p>
+    <p>Check-out Date: <span th:text="${#dates.format(reservation.checkOutDate, 'yyyy-MM-dd')}"></span></p>
+</body>
+
+</html>

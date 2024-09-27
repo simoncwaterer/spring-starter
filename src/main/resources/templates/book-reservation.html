@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Book a Reservation</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+    <h1>Book a Reservation</h1>
+    <form th:action="@{/reservations/book}" method="post">
+        <select name="roomId" required>
+            <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.roomNumber}"></option>
+        </select>
+        <select name="guestId" required>
+            <option th:each="guest : ${guests}" th:value="${guest.guestId}"
+                th:text="${guest.lastName + ', ' + guest.firstName}"></option>
+        </select>
+        <input type="date" name="checkInDate" required>
+        <input type="date" name="checkOutDate" required>
+        <button type="submit">Book Reservation</button>
+    </form>
+</body>
+
+</html>

@@ -36,4 +36,31 @@ public class RoomReservationController {
         return "roomres";
     }
 
+    @PostMapping("/book")
+    public String bookReservation(@RequestParam("roomId") long roomId,
+            @RequestParam("guestId") long guestId,
+            @RequestParam("checkInDate") String checkInDateString,
+            @RequestParam("checkOutDate") String checkOutDateString,
+            Model model) {
+        Date checkInDate = this.dateUtils.createDateFromDateString(checkInDateString);
+        Date checkOutDate = this.dateUtils.createDateFromDateString(checkOutDateString);
+
+        try {
+            reservationService.bookReservation(roomId, guestId, checkInDate, checkOutDate);
+            model.addAttribute("message", "Reservation booked successfully!");
+        } catch (Exception e) {
+            model.addAttribute("error", "Failed to book reservation: " + e.getMessage());
+        }
+
+        // Redirect to the reservations page to show updated list
+        return "redirect:/reservations?date=" + checkInDateString;
+    }
+
+    @GetMapping("/book")
+    public String showBookReservationForm(Model model) {
+        model.addAttribute("rooms", reservationService.getRooms());
+        model.addAttribute("guests", reservationService.getHotelGuests());
+        return "book-reservation";
+    }
+
 }
